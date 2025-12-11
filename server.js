@@ -2,11 +2,33 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import express from "express";
+import cors from "cors";
 import connectDB from "./config/db.js";
-
+import userRoutes from "./routes/User.routes.js";
 
 const app = express();
 
+// Middleware
+app.use(cors()); // Enable CORS for React Native
+app.use(express.json()); // Parse JSON bodies
+app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
+
+// Database connection
 connectDB();
 
-app.listen(5000, () => console.log("Server running on port 5000"));
+// Routes
+app.use("/api/auth", userRoutes);
+
+// Health check route
+app.get("/", (req, res) => {
+  res.json({ message: "MindCase API is running" });
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ message: "Something went wrong!" });
+});
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
