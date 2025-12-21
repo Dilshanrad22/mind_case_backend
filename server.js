@@ -5,6 +5,8 @@ import express from "express";
 import cors from "cors";
 import connectDB from "./config/db.js";
 import userRoutes from "./routes/User.routes.js";
+import journalRoutes from "./routes/journal.routes.js";
+import moodRoutes from "./routes/mood.routes.js";
 
 const app = express();
 
@@ -18,6 +20,8 @@ connectDB();
 
 // Routes
 app.use("/api/auth", userRoutes);
+app.use("/api/journals", journalRoutes);
+app.use("/api/moods", moodRoutes);
 
 // Health check route
 app.get("/", (req, res) => {

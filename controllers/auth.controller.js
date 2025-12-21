@@ -15,7 +15,7 @@ const generateToken = (userId) => {
 export const signup = async (req, res) => {
   try {
     const { name, email, password } = req.body;
-
+    console.log(name, email, password);
     // Validation
     if (!name || !email || !password) {
       return res.status(400).json({ message: "All fields are required" });
@@ -69,6 +69,7 @@ export const signup = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
+    console.log(email, password);
 
     // Validation
     if (!email || !password) {
@@ -118,6 +119,25 @@ export const getProfile = async (req, res) => {
     });
   } catch (error) {
     console.error("Get profile error:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// @desc    Logout user
+// @route   POST /api/auth/logout
+// @access  Private
+export const logout = async (req, res) => {
+  try {
+    // For JWT-based auth, logout is primarily client-side
+    // Client should remove token from AsyncStorage/SecureStore
+    // This endpoint can be used for logging/analytics or future token blacklisting
+    
+    res.status(200).json({
+      success: true,
+      message: "Logout successful",
+    });
+  } catch (error) {
+    console.error("Logout error:", error);
     res.status(500).json({ message: "Server error" });
   }
 };
