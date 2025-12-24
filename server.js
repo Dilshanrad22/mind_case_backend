@@ -7,6 +7,7 @@ import connectDB from "./config/db.js";
 import userRoutes from "./routes/User.routes.js";
 import journalRoutes from "./routes/journal.routes.js";
 import moodRoutes from "./routes/mood.routes.js";
+import chatRoutes from "./routes/chat.routes.js";
 
 const app = express();
 
@@ -22,6 +23,7 @@ connectDB();
 app.use("/api/auth", userRoutes);
 app.use("/api/journals", journalRoutes);
 app.use("/api/moods", moodRoutes);
+app.use("/api/chat", chatRoutes);
 
 // Health check route
 app.get("/", (req, res) => {
